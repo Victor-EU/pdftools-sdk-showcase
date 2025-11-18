@@ -5,7 +5,7 @@ import { PdfWebViewer } from '@pdf-tools/four-heights-pdf-web-viewer'
 import '@pdf-tools/four-heights-pdf-web-viewer/css/pdf-web-viewer.css'
 import styles from './PDFViewer.module.css'
 
-const LICENSE_KEY = '<VIEWWEB,V5,H8A8N0HNQB4KUAHDBJ>'
+const LICENSE_KEY = '<4H,V6,VIEWWEB,CUA6C7MBS6L2SJXS87K50CVQC21SL2SJ40APNVS>'
 
 /**
  * PDF Viewer Component with Annotation Support

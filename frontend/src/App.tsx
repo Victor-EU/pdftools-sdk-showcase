@@ -31,7 +31,7 @@ function App() {
             <PdfIcon sx={{ fontSize: 40 }} />
             <Box>
               <Typography variant="h4" fontWeight="bold">
-                PDF Editor
+                PDF Editor powered by Pdftools
               </Typography>
               <Typography variant="body2" sx={{ color: 'white' }}>
                 View, Edit, Merge, Split, Compress & Convert PDFs

@@ -1,183 +1,200 @@
-# PDF Editor 📄
+# PDF Editor - Complete PDF Processing Solution
 
-<div align="center">
+![License](https://img.shields.io/badge/license-Proprietary-blue)
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.0-brightgreen)
+![React](https://img.shields.io/badge/React-18.2-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue)
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.java.com/)
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)](https://spring.io/projects/spring-boot)
-[![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=mui&logoColor=white)](https://mui.com/)
+A professional-grade PDF processing application built with Spring Boot and React, powered by PDF Tools SDK. Provides comprehensive PDF manipulation capabilities including viewing, merging, splitting, compressing, and converting documents.
 
-**A modern, full-stack PDF editing application with a beautiful UI**
-
-[Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [License](#-license)
-
-</div>
-
----
-
-## 🌟 Overview
-
-PDF Editor is a comprehensive web application that provides professional-grade PDF manipulation capabilities. Built with modern technologies and following industry best practices, it offers an intuitive interface for viewing, annotating, merging, splitting, compressing, and converting PDF documents.
-
-### ✨ Key Highlights
-
-- 🎨 **Modern UI Design** - Clean, light blue interface inspired by pdftools.com
-- ⚡ **High Performance** - Powered by PDF Tools SDK for enterprise-grade processing
-- 🏗️ **Scalable Architecture** - Separation of concerns with clean code principles
-- 🔒 **Type-Safe** - Full TypeScript implementation on frontend
-- 📱 **Responsive Design** - Works seamlessly across devices
-- 🎯 **OOP Best Practices** - Well-structured, maintainable codebase
-
----
-
-## 🚀 Features
+## Features
 
 ### PDF Viewing & Annotation
-- **View** PDFs with high-fidelity rendering
-- **Annotate** with highlights, comments, and drawings
-- **Redact** sensitive information securely
-- Powered by `@pdf-tools/four-heights-pdf-web-viewer`
+- **Interactive PDF Viewer**: Powered by PDF Tools Four Heights Web Viewer SDK
+- **Annotation Tools**: Add notes, highlights, and markups
+- **Redaction Support**: Permanently remove sensitive information
+- **Pan & Zoom**: Smooth navigation and inspection
 
 ### PDF Operations
-| Feature | Description | API Endpoint |
-|---------|-------------|--------------|
-| **Merge** | Combine multiple PDFs into one | `POST /api/merge` |
-| **Split** | Divide PDF by pages or ranges | `POST /api/split` |
-| **Compress** | Reduce file size (web/print profiles) | `POST /api/compress` |
-| **Convert** | Export to PNG, JPEG, or TIFF | `POST /api/convert` |
 
----
+#### 1. Merge PDFs
+- Combine multiple PDF files into a single document
+- Preserve document structure and formatting
+- Support for batch merging (2+ files)
+- Custom output naming
 
-## 🏛️ Architecture
+#### 2. Split PDF
+- **Split by Ranges**: Extract specific page ranges (e.g., 1-5, 10-15)
+- **Split by Pages**: Divide at specific page numbers
+- Generate multiple output files from one source
+- Automatic file naming with page ranges
 
-### System Overview
+#### 3. Compress PDF
+- **Web Profile**: Optimized for screen viewing (reduced file size)
+- **Print Profile**: Maintains quality for printing
+- **Custom Profile**: Configurable image quality
+- Shows compression ratio and size savings
+
+#### 4. Convert to Image
+- **Formats**: PNG, JPEG, TIFF
+- **Configurable DPI**: 72-600 DPI resolution
+- **Selective Conversion**: Convert specific pages or ranges
+- **Batch Export**: Multiple pages to individual images
+
+## Technology Stack
+
+### Backend
+- **Java 17**: Modern LTS Java version
+- **Spring Boot 3.2.0**: Enterprise-grade framework
+- **PDF Tools SDK 1.14.0**: Professional PDF processing library
+- **Maven**: Dependency management
+- **SLF4J + Logback**: Logging framework
+
+### Frontend
+- **React 18**: Modern UI library
+- **TypeScript 5.2**: Type-safe development
+- **Vite 5.0**: Fast build tool
+- **Material-UI (MUI) 5.15**: Professional component library
+- **Axios**: HTTP client
+- **PDF Tools Four Heights Viewer 4.3.5**: Advanced PDF viewer
+
+## Architecture
+
+### Project Structure
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    React Frontend (Port 3000)                │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │  Components (TypeScript + CSS Modules)                │  │
-│  │  • PDFViewer    • MergePanel   • SplitPanel          │  │
-│  │  • CompressPanel • ConvertPanel                      │  │
-│  └──────────────────────┬────────────────────────────────┘  │
-│  ┌──────────────────────▼────────────────────────────────┐  │
-│  │  Services Layer                                       │  │
-│  │  • API Client (Axios)  • Type Definitions            │  │
-│  └──────────────────────┬────────────────────────────────┘  │
-│  ┌──────────────────────▼────────────────────────────────┐  │
-│  │  UI Framework                                         │  │
-│  │  • Material-UI  • MUI Theme (Light Blue)             │  │
-│  └───────────────────────────────────────────────────────┘  │
-└─────────────────────┬───────────────────────────────────────┘
-                      │ REST API (Axios)
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│            Spring Boot Backend (Port 8080)                   │
-│  ┌───────────────────────────────────────────────────────┐  │
-│  │  REST Controllers                                     │  │
-│  │  MergeController │ SplitController │ CompressController│ │
-│  └──────────────────────┬────────────────────────────────┘  │
-│  ┌──────────────────────▼────────────────────────────────┐  │
-│  │  Service Layer (Business Logic)                      │  │
-│  │  • PdfMergeService    • PdfSplitService              │  │
-│  │  • PdfCompressService • PdfConvertService            │  │
-│  └──────────────────────┬────────────────────────────────┘  │
-│  ┌──────────────────────▼────────────────────────────────┐  │
-│  │  PDF Tools SDK Integration                           │  │
-│  │  • DocumentAssembler  • Optimizer  • Converter       │  │
-│  └───────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────┘
+pdf-editor/
+├── backend/                        # Spring Boot backend
+│   ├── src/main/
+│   │   ├── java/com/pdfeditor/
+│   │   │   ├── config/            # Configuration classes
+│   │   │   │   ├── CorsConfig.java
+│   │   │   │   └── PdfToolsConfig.java
+│   │   │   ├── controller/        # REST API endpoints
+│   │   │   │   ├── FileDownloadController.java
+│   │   │   │   ├── PdfCompressController.java
+│   │   │   │   ├── PdfConvertController.java
+│   │   │   │   ├── PdfMergeController.java
+│   │   │   │   └── PdfSplitController.java
+│   │   │   ├── dto/               # Data Transfer Objects
+│   │   │   │   ├── ApiResponse.java
+│   │   │   │   ├── CompressRequest.java
+│   │   │   │   ├── ConvertRequest.java
+│   │   │   │   ├── FileResponse.java
+│   │   │   │   ├── MergeRequest.java
+│   │   │   │   └── SplitRequest.java
+│   │   │   ├── exception/         # Exception handling
+│   │   │   │   ├── GlobalExceptionHandler.java
+│   │   │   │   └── PdfProcessingException.java
+│   │   │   ├── service/           # Business logic
+│   │   │   │   ├── PdfCompressService.java
+│   │   │   │   ├── PdfConvertService.java
+│   │   │   │   ├── PdfMergeService.java
+│   │   │   │   └── PdfSplitService.java
+│   │   │   └── PdfEditorApplication.java
+│   │   └── resources/
+│   │       └── application.properties
+│   ├── lib/                       # PDF Tools SDK
+│   │   ├── com.pdftools.jar
+│   │   └── osx-arm64/libPdfToolsSdk.dylib
+│   ├── uploads/                   # Temporary uploads
+│   ├── outputs/                   # Processed files
+│   ├── pom.xml                    # Maven configuration
+│   ├── README.md                  # Backend documentation
+│   └── BACKEND_STATUS.md          # Backend status report
+│
+├── frontend/                      # React frontend
+│   ├── public/                    # Static assets
+│   ├── src/
+│   │   ├── components/           # React components
+│   │   │   ├── Operations/       # PDF operations
+│   │   │   │   ├── CompressPanel/
+│   │   │   │   ├── ConvertPanel/
+│   │   │   │   ├── MergePanel/
+│   │   │   │   └── SplitPanel/
+│   │   │   └── PDFViewer/        # PDF viewer component
+│   │   ├── services/             # API layer
+│   │   │   └── api.ts
+│   │   ├── theme/                # MUI theme
+│   │   │   └── theme.ts
+│   │   ├── types/                # TypeScript types
+│   │   │   └── index.ts
+│   │   ├── App.tsx               # Main component
+│   │   └── main.tsx              # Entry point
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── vite.config.ts
+│   └── README.md                 # Frontend documentation
+│
+├── SECURITY_AUDIT.md             # Security analysis
+├── README.md                     # This file
+└── USER_GUIDE.md                 # User guide
 ```
 
-### Technology Stack
+### System Design
 
-#### Frontend
-- **React 18** - Modern component-based UI
-- **TypeScript** - Type safety and better developer experience
-- **Vite** - Lightning-fast development and build tool
-- **Material-UI** - Comprehensive React component library
-- **PDF Tools Viewer** - Professional PDF viewing and annotation
-- **Axios** - Promise-based HTTP client
-- **CSS Modules** - Scoped component styling
-
-#### Backend
-- **Java 17** - Modern LTS Java version
-- **Spring Boot 3.2** - Industry-standard framework
-- **PDF Tools SDK** - Enterprise-grade PDF processing
-- **Maven** - Dependency management and build automation
-- **Lombok** - Reduces boilerplate code
-
-### CSS Architecture
-
-Our CSS architecture is designed for **scalability** and **maintainability**:
-
-#### Global CSS (`src/styles/`)
-- **variables.css** - Design tokens (colors, spacing, typography)
-- **globals.css** - Base styles and CSS resets
-- **typography.css** - Font loading and text utilities
-- **utilities.css** - Utility classes for rapid development
-
-#### Local CSS (CSS Modules)
-- Component-scoped styles (`ComponentName.module.css`)
-- No global namespace pollution
-- Type-safe className references in TypeScript
-
-**Example:**
-```css
-/* Button.module.css */
-.button {
-  padding: var(--spacing-sm) var(--spacing-lg);
-  background-color: var(--color-primary);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-base);
-}
+```
+┌─────────────────┐
+│   Frontend      │
+│   React + TS    │
+│   Port 5000     │
+└────────┬────────┘
+         │ HTTP/REST
+         │ Proxy /api
+         ▼
+┌─────────────────┐
+│   Backend       │
+│   Spring Boot   │
+│   Port 5001     │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  PDF Tools SDK  │
+│  Native Library │
+└─────────────────┘
 ```
 
-```tsx
-// Button.tsx
-import styles from './Button.module.css'
-export const Button = () => <button className={styles.button}>Click</button>
-```
+## Prerequisites
 
----
+### Backend Requirements
+- **Java 17 or higher** ([Download](https://adoptium.net/))
+- **Maven 3.6+** ([Download](https://maven.apache.org/download.cgi))
+- **macOS with ARM64** (or adapt for other platforms)
+- **PDF Tools SDK License Key**
 
-## 🎯 Quick Start
+### Frontend Requirements
+- **Node.js 18+** ([Download](https://nodejs.org/))
+- **npm or yarn**
 
-### Prerequisites
+## Quick Start
 
-- **Node.js** 18+ and npm
-- **Java** 17+
-- **Maven** 3.6+
-- **macOS** with ARM64 architecture (for PDF Tools SDK)
-
-### Installation
-
-#### 1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/pdf-editor.git
+git clone <repository-url>
 cd pdf-editor
 ```
 
-#### 2. Backend Setup
+### 2. Setup Backend
 
 ```bash
 cd backend
 
+# Set the PDF Tools SDK license key
+export PDFTOOLS_LICENSE_KEY="<PDFSDK,V1,YOUR_LICENSE_KEY>"
+
 # Install dependencies
 mvn clean install
 
-# Set license key (required)
-export PDFTOOLS_LICENSE_KEY="<PDFSDK,V1,MGAAS0GPQFL3W2XUDBL>"
-
-# Run the backend
+# Run the backend server
 mvn spring-boot:run
 ```
 
-Backend will start at `http://localhost:8080/api`
+Backend will start at `http://localhost:5001/api`
 
-#### 3. Frontend Setup
+### 3. Setup Frontend
 
 ```bash
 cd frontend
@@ -185,267 +202,510 @@ cd frontend
 # Install dependencies
 npm install
 
-# Run development server
+# Run the development server
 npm run dev
 ```
 
-Frontend will start at `http://localhost:3000`
+Frontend will start at `http://localhost:5000`
 
-### 🎬 Using the Application
+### 4. Access the Application
 
-1. **Open** `http://localhost:3000` in your browser
-2. **Select** an operation tab (View, Merge, Split, Compress, Convert)
-3. **Upload** your PDF file(s)
-4. **Configure** operation settings
-5. **Process** and download the result
-
----
-
-## 📚 Documentation
-
-### API Reference
-
-#### Merge PDFs
-
-```bash
-curl -X POST http://localhost:8080/api/merge \
-  -F "files=@document1.pdf" \
-  -F "files=@document2.pdf" \
-  -F "outputFileName=merged.pdf"
+Open your browser and navigate to:
+```
+http://localhost:5000
 ```
 
-**Response:**
-```json
+## Configuration
+
+### Backend Configuration
+
+Edit `backend/src/main/resources/application.properties`:
+
+```properties
+# Server Configuration
+server.port=5001
+server.servlet.context-path=/api
+
+# File Upload Limits
+spring.servlet.multipart.max-file-size=100MB
+spring.servlet.multipart.max-request-size=100MB
+
+# Working Directories
+app.upload.dir=./uploads
+app.output.dir=./outputs
+
+# PDF Tools SDK
+pdftools.sdk.license-key=${PDFTOOLS_LICENSE_KEY}
+pdftools.sdk.native-lib-path=./lib/osx-arm64
+
+# CORS Configuration
+cors.allowed-origins=http://localhost:5000
+```
+
+### Frontend Configuration
+
+Edit `frontend/vite.config.ts`:
+
+```typescript
+export default defineConfig({
+  server: {
+    port: 5000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5001',
+        changeOrigin: true,
+      },
+    },
+  },
+})
+```
+
+### Environment Variables
+
+Create `.env` files for sensitive configuration:
+
+**Backend** (`.env` or environment):
+```bash
+export PDFTOOLS_LICENSE_KEY="<PDFSDK,V1,YOUR_LICENSE_KEY>"
+```
+
+**Frontend** (`frontend/.env`):
+```bash
+VITE_API_BASE_URL=http://localhost:5001/api
+```
+
+## API Documentation
+
+### Base URL
+```
+http://localhost:5001/api
+```
+
+### Endpoints
+
+#### 1. Merge PDFs
+```http
+POST /api/merge
+Content-Type: multipart/form-data
+
+Parameters:
+- files: File[] (required) - PDF files to merge
+- outputFileName: string (optional) - Desired output name
+
+Response:
 {
   "success": true,
-  "message": "PDF files merged successfully",
+  "message": "PDFs merged successfully",
   "data": {
     "fileName": "merged.pdf",
-    "fileSize": 1048576,
+    "fileSize": 1234567,
     "downloadUrl": "/download/merged.pdf"
   }
 }
 ```
 
-#### Split PDF
+#### 2. Split PDF
+```http
+POST /api/split
+Content-Type: multipart/form-data
 
+Parameters:
+- file: File (required) - PDF to split
+- splitMode: "pages" | "ranges" (required)
+- splitPoints: string[] (required) - Page numbers or ranges
+- outputFileNameBase: string (optional)
+
+Response:
+{
+  "success": true,
+  "message": "PDF split successfully",
+  "data": [
+    {
+      "fileName": "output_part1_pages1-5.pdf",
+      "fileSize": 123456,
+      "downloadUrl": "/download/output_part1_pages1-5.pdf"
+    },
+    ...
+  ]
+}
+```
+
+#### 3. Compress PDF
+```http
+POST /api/compress
+Content-Type: multipart/form-data
+
+Parameters:
+- file: File (required)
+- compressionProfile: "web" | "print" | "custom" (required)
+- imageQuality: number (optional, for custom profile)
+- outputFileName: string (optional)
+
+Response:
+{
+  "success": true,
+  "message": "PDF compressed successfully",
+  "data": {
+    "fileName": "compressed.pdf",
+    "fileSize": 500000,
+    "originalSize": 2000000,
+    "compressionRatio": 75.0,
+    "downloadUrl": "/download/compressed.pdf"
+  }
+}
+```
+
+#### 4. Convert to Image
+```http
+POST /api/convert
+Content-Type: multipart/form-data
+
+Parameters:
+- file: File (required)
+- imageFormat: "png" | "jpeg" | "tiff" (required)
+- dpi: number (optional, default 150)
+- pages: string (optional, e.g., "1,3,5" or "1-5")
+- outputFileNameBase: string (optional)
+
+Response:
+{
+  "success": true,
+  "message": "PDF converted to images successfully",
+  "data": [
+    {
+      "fileName": "output_page_01.png",
+      "fileSize": 123456,
+      "downloadUrl": "/download/output_page_01.png"
+    },
+    ...
+  ]
+}
+```
+
+#### 5. Download File
+```http
+GET /api/download/{filename}
+
+Response: Binary file data
+```
+
+## Usage Examples
+
+### Using cURL
+
+#### Merge PDFs
 ```bash
-curl -X POST http://localhost:8080/api/split \
+curl -X POST http://localhost:5001/api/merge \
+  -F "files=@document1.pdf" \
+  -F "files=@document2.pdf" \
+  -F "outputFileName=merged.pdf"
+```
+
+#### Split PDF by Ranges
+```bash
+curl -X POST http://localhost:5001/api/split \
   -F "file=@document.pdf" \
   -F "splitMode=ranges" \
-  -F "splitPoints=1-3" \
-  -F "splitPoints=4-6"
+  -F "splitPoints=1-5" \
+  -F "splitPoints=6-10"
 ```
 
 #### Compress PDF
-
 ```bash
-curl -X POST http://localhost:8080/api/compress \
-  -F "file=@document.pdf" \
+curl -X POST http://localhost:5001/api/compress \
+  -F "file=@large.pdf" \
   -F "compressionProfile=web"
 ```
 
 #### Convert to Image
-
 ```bash
-curl -X POST http://localhost:8080/api/convert \
+curl -X POST http://localhost:5001/api/convert \
   -F "file=@document.pdf" \
   -F "imageFormat=png" \
   -F "dpi=300" \
   -F "pages=1-3"
 ```
 
-### Project Structure
+### Using JavaScript/TypeScript
 
-```
-pdf-editor/
-├── backend/                     # Spring Boot backend
-│   ├── src/main/java/com/pdfeditor/
-│   │   ├── controller/         # REST API endpoints
-│   │   ├── service/            # Business logic
-│   │   ├── config/             # Spring configuration
-│   │   ├── dto/                # Data Transfer Objects
-│   │   └── exception/          # Error handling
-│   ├── lib/                    # PDF Tools SDK
-│   └── pom.xml
-│
-├── frontend/                    # React frontend
-│   ├── src/
-│   │   ├── components/         # React components
-│   │   ├── services/           # API services
-│   │   ├── theme/              # MUI theme
-│   │   ├── types/              # TypeScript definitions
-│   │   └── styles/             # Global CSS
-│   ├── package.json
-│   └── vite.config.ts
-│
-└── README.md
-```
+```typescript
+import { apiService } from './services/api'
 
----
+// Merge PDFs
+const mergeResult = await apiService.mergePdfs({
+  files: [file1, file2],
+  outputFileName: 'merged.pdf'
+})
 
-## 🎨 Design System
+// Split PDF
+const splitResult = await apiService.splitPdf({
+  file: pdfFile,
+  splitMode: 'ranges',
+  splitPoints: ['1-5', '6-10']
+})
 
-### Color Palette
+// Compress PDF
+const compressResult = await apiService.compressPdf({
+  file: pdfFile,
+  compressionProfile: 'web'
+})
 
-| Color | Hex | Usage |
-|-------|-----|-------|
-| Primary Blue | `#4A9BD1` | Main actions, headers |
-| Light Blue | `#6BB6E8` | Hover states, highlights |
-| Dark Blue | `#3A7FAF` | Active states, borders |
-| Background | `#F5F9FC` | Page background |
-| Text Primary | `#2C3E50` | Headings, important text |
-| Text Secondary | `#5A6C7D` | Body text |
-
-### Typography
-
-- **Font Family**: Source Sans Pro
-- **Weights**: 300 (Light), 400 (Regular), 600 (Semibold), 700 (Bold)
-- **Scale**: Base 16px, modular scale for headings
-
-### Spacing
-
-```
-xs:  4px
-sm:  8px
-md:  16px
-lg:  24px
-xl:  32px
-2xl: 48px
+// Convert to Image
+const convertResult = await apiService.convertPdfToImage({
+  file: pdfFile,
+  imageFormat: 'png',
+  dpi: 300,
+  pages: '1-5'
+})
 ```
 
----
+## Development
 
-## 🛠️ Development
+### Running Tests
 
-### Code Style
-
-- **Java**: Follow Spring Boot conventions, use Lombok for boilerplate reduction
-- **TypeScript**: Strict mode enabled, functional components with hooks
-- **CSS**: BEM methodology in module.css files, use CSS variables
-- **Commits**: Conventional Commits format
-
-### Testing
-
+**Backend:**
 ```bash
-# Backend tests
 cd backend
 mvn test
+```
 
-# Frontend tests
+**Frontend:**
+```bash
 cd frontend
-npm run test
+npm test
 ```
 
 ### Building for Production
 
+**Backend:**
 ```bash
-# Backend
 cd backend
 mvn clean package
-
-# Frontend
-cd frontend
-npm run build
+java -jar target/pdf-editor-backend-1.0.0.jar
 ```
 
+**Frontend:**
+```bash
+cd frontend
+npm run build
+# Output will be in dist/ directory
+```
+
+### Code Style
+
+**Backend (Java):**
+- Follow Oracle Java Code Conventions
+- Use meaningful variable names
+- Add JavaDoc comments to public methods
+- Apply SOLID principles
+
+**Frontend (TypeScript):**
+- Use TypeScript for type safety
+- Follow React Hooks best practices
+- Use functional components
+- CSS Modules for component styling
+
+## Security Considerations
+
+This project has undergone a comprehensive security audit. **IMPORTANT**: Before deploying to production, please review `SECURITY_AUDIT.md` for:
+
+- Critical security vulnerabilities
+- Input validation requirements
+- File cleanup strategies
+- Rate limiting implementation
+- Authentication/authorization needs
+- CORS configuration
+- Error handling improvements
+
+**Key Security Issues to Address:**
+1. Input validation on all endpoints
+2. Filename sanitization (path traversal prevention)
+3. Automated file cleanup (prevent disk exhaustion)
+4. Rate limiting (DoS prevention)
+5. Authentication/authorization
+6. Error message sanitization
+
+See `SECURITY_AUDIT.md` for detailed remediation steps.
+
+## Performance
+
+### File Size Limits
+- **Maximum upload size**: 100MB per file
+- **Maximum request size**: 100MB total
+- **Recommended file size**: < 50MB for optimal performance
+
+### Timeout Settings
+- **API timeout**: 2 minutes (120 seconds)
+- **Processing timeout**: 5 minutes for large files
+
+### Optimization Tips
+- Use web compression profile for smaller files
+- Convert only necessary pages to images
+- Split large documents before processing
+- Use appropriate DPI settings (150-300 for most cases)
+
+## Troubleshooting
+
+### Common Issues
+
+**1. Backend fails to start - "Native library not found"**
+```bash
+# Ensure the library path is correct
+ls backend/lib/osx-arm64/libPdfToolsSdk.dylib
+
+# Remove quarantine attributes (macOS)
+xattr -d com.apple.quarantine backend/lib/osx-arm64/libPdfToolsSdk.dylib
+```
+
+**2. License key error**
+```bash
+# Verify the license key is set
+echo $PDFTOOLS_LICENSE_KEY
+
+# Set it if missing
+export PDFTOOLS_LICENSE_KEY="<PDFSDK,V1,YOUR_LICENSE_KEY>"
+```
+
+**3. CORS errors in frontend**
+```bash
+# Verify CORS origins in backend application.properties
+cors.allowed-origins=http://localhost:5000
+
+# Restart backend after changes
+```
+
+**4. File upload fails**
+```bash
+# Check file size limits in application.properties
+spring.servlet.multipart.max-file-size=100MB
+spring.servlet.multipart.max-request-size=100MB
+```
+
+**5. PDF Viewer not loading**
+```bash
+# Verify the Four Heights viewer license key in PDFViewer.tsx
+const LICENSE_KEY = '<4H,V6,VIEWWEB,YOUR_LICENSE_KEY>'
+
+# Check browser console for errors
+```
+
+## Deployment
+
+### Docker Deployment (Recommended)
+
+**Backend Dockerfile:**
+```dockerfile
+FROM openjdk:17-slim
+WORKDIR /app
+COPY target/pdf-editor-backend-1.0.0.jar app.jar
+COPY lib lib/
+ENV PDFTOOLS_LICENSE_KEY=""
+EXPOSE 5001
+CMD ["java", "-jar", "app.jar"]
+```
+
+**Frontend Dockerfile:**
+```dockerfile
+FROM node:18-alpine as build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 5000
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+**Docker Compose:**
+```yaml
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5001:5001"
+    environment:
+      - PDFTOOLS_LICENSE_KEY=${PDFTOOLS_LICENSE_KEY}
+    volumes:
+      - ./uploads:/app/uploads
+      - ./outputs:/app/outputs
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backend
+```
+
+### Cloud Deployment Considerations
+
+1. **File Storage**: Use cloud storage (S3, Google Cloud Storage) instead of local filesystem
+2. **Load Balancing**: Use multiple backend instances behind a load balancer
+3. **CDN**: Serve frontend through a CDN for better performance
+4. **Monitoring**: Implement application monitoring (Prometheus, Grafana)
+5. **Logging**: Centralized logging (ELK stack, CloudWatch)
+
+## License
+
+This project uses the PDF Tools SDK which requires a commercial license.
+
+- **PDF Tools SDK**: Commercial license required from PDF Tools AG
+- **Application Code**: [Your License Here]
+
+## Support
+
+- **Documentation**: See `USER_GUIDE.md` for detailed user instructions
+- **Security**: Review `SECURITY_AUDIT.md` before production deployment
+- **Backend Details**: See `backend/README.md`
+- **Frontend Details**: See `frontend/README.md`
+- **Issues**: [GitHub Issues](your-repository-url/issues)
+
+## Acknowledgments
+
+- **PDF Tools AG** for the powerful PDF processing SDK
+- **Spring Boot** team for the excellent framework
+- **React** team for the UI library
+- **Material-UI** for the component library
+
+## Version History
+
+### v1.0.0 (Current)
+- Initial release
+- PDF viewing and annotation
+- Merge multiple PDFs
+- Split PDFs by pages/ranges
+- Compress PDFs with multiple profiles
+- Convert PDFs to PNG/JPEG/TIFF
+- Modern React frontend with Material-UI
+- RESTful API backend with Spring Boot
+
+## Roadmap
+
+### Planned Features
+- [ ] Batch processing queue
+- [ ] User authentication and authorization
+- [ ] Cloud storage integration (S3, Google Cloud Storage)
+- [ ] OCR support for scanned documents
+- [ ] Digital signature support
+- [ ] Form field editing
+- [ ] Watermarking
+- [ ] Password protection/encryption
+- [ ] Document comparison/diff
+- [ ] Advanced redaction tools
+
+## Contributing
+
+[Add your contribution guidelines here]
+
+## Authors
+
+PDF Editor Team
+
 ---
 
-## 🔐 License Keys
-
-This project requires valid PDF Tools SDK license keys:
-
-- **Backend SDK**: Set via `PDFTOOLS_LICENSE_KEY` environment variable
-- **Viewer SDK**: Configure in frontend viewer initialization
-
-**Note**: The keys included in this repository are for demonstration purposes. For production use, obtain your own licenses from [PDF Tools AG](https://www.pdf-tools.com/).
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these guidelines:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-### Code Review Checklist
-
-- [ ] Code follows project style guidelines
-- [ ] All tests pass
-- [ ] New features include tests
-- [ ] Documentation is updated
-- [ ] No console errors or warnings
-- [ ] TypeScript types are properly defined
-
----
-
-## 📝 Roadmap
-
-- [x] ✅ Complete PDF viewer integration with Four Heights SDK
-- [x] ✅ All PDF operations (merge, split, compress, convert) fully working
-- [x] ✅ PDF to image conversion with multiple formats
-- [x] ✅ Enhanced error handling and validation
-- [ ] Add drag-and-drop file upload enhancements
-- [ ] Implement progress bars for long operations
-- [ ] Add batch processing support
-- [ ] User authentication and file storage
-- [ ] Docker containerization
-- [ ] CI/CD pipeline
-- [ ] Comprehensive test coverage
-- [ ] Accessibility improvements (WCAG 2.1 AA)
-- [ ] Internationalization (i18n)
-
----
-
-## ✅ Implemented Features
-
-All core PDF operations are **fully functional**:
-
-- ✅ **PDF Viewing & Annotation** - Complete with Four Heights SDK
-- ✅ **Merge PDFs** - Combines multiple documents
-- ✅ **Split PDF** - By ranges or specific pages with validation
-- ✅ **Compress PDF** - Web and Print optimization profiles
-- ✅ **Convert to Images** - PNG, JPEG, TIFF with DPI control
-
-See [Issues](https://github.com/yourusername/pdf-editor/issues) for enhancement requests.
-
----
-
-## 📧 Support
-
-- **Documentation**: See `/backend/README.md` and `/frontend/README.md`
-- **Issues**: [GitHub Issues](https://github.com/yourusername/pdf-editor/issues)
-- **Email**: support@yourproject.com
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-**PDF Tools SDK License**: Separate licensing required from [PDF Tools AG](https://www.pdf-tools.com/)
-
----
-
-## 🙏 Acknowledgments
-
-- [PDF Tools AG](https://www.pdf-tools.com/) for their powerful SDK
-- [Material-UI](https://mui.com/) for the excellent component library
-- [Spring Boot](https://spring.io/projects/spring-boot) for the robust backend framework
-- [Vite](https://vitejs.dev/) for the blazing fast build tool
-
----
-
-<div align="center">
-
-**Powered by PDFTools' SDK**
-
-⭐ Star this repo if you find it helpful!
-
-[Report Bug](https://github.com/yourusername/pdf-editor/issues) • [Request Feature](https://github.com/yourusername/pdf-editor/issues)
-
-</div>
+**Built with ❤️ using PDF Tools SDK, Spring Boot, and React**
