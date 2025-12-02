@@ -1,0 +1,68 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.uploadArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: var(--spacing-2xl);
+  border: 2px dashed var(--color-border-main);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-tertiary);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.uploadArea:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.dragActive {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-hover);
+  box-shadow: var(--shadow-md);
+  transform: scale(1.02);
+}
+
+.conformanceLevels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.conformanceOption {
+  padding: 16px;
+  border: 2px solid var(--color-border-main);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-align: center;
+}
+
+.conformanceOption:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-hover);
+}
+
+.conformanceSelected {
+  border-color: var(--color-primary);
+  background-color: rgba(74, 155, 209, 0.1);
+}
+
+.conformanceTitle {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.conformanceDescription {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}

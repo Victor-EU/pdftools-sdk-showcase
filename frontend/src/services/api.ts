@@ -11,6 +11,11 @@ import {
   SplitRequest,
   CompressRequest,
   ConvertRequest,
+  MetadataResponse,
+  DataExtractionRequest,
+  DataExtractionResponse,
+  PdfAValidationResponse,
+  PdfAConversionRequest,
 } from '../types';
 
 class ApiService {
@@ -103,6 +108,69 @@ class ApiService {
     link.click();
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
+  }
+
+  /**
+   * Extracts metadata from a PDF file.
+   */
+  async extractMetadata(file: File): Promise<ApiResponse<MetadataResponse>> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await this.client.post<ApiResponse<MetadataResponse>>('/metadata', formData);
+    return response.data;
+  }
+
+  /**
+   * Extracts text and data from a PDF file.
+   */
+  async extractData(request: DataExtractionRequest): Promise<ApiResponse<DataExtractionResponse>> {
+    const formData = new FormData();
+    formData.append('file', request.file);
+    if (request.extractImages !== undefined) {
+      formData.append('extractImages', request.extractImages.toString());
+    }
+    if (request.pages) {
+      formData.append('pages', request.pages);
+    }
+
+    const response = await this.client.post<ApiResponse<DataExtractionResponse>>('/extract', formData);
+    return response.data;
+  }
+
+  /**
+   * Validates a PDF file for PDF/A conformance.
+   */
+  async validatePdfA(file: File, conformanceLevel?: string): Promise<ApiResponse<PdfAValidationResponse>> {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (conformanceLevel) {
+      formData.append('conformanceLevel', conformanceLevel);
+    }
+
+    const response = await this.client.post<ApiResponse<PdfAValidationResponse>>('/validate-pdfa', formData);
+    return response.data;
+  }
+
+  /**
+   * Converts a PDF file to PDF/A format.
+   */
+  async convertToPdfA(request: PdfAConversionRequest): Promise<ApiResponse<FileResponse>> {
+    const formData = new FormData();
+    formData.append('file', request.file);
+    formData.append('conformanceLevel', request.conformanceLevel);
+    if (request.outputFileName) {
+      formData.append('outputFileName', request.outputFileName);
+    }
+    if (request.copyMetadata !== undefined) {
+      formData.append('copyMetadata', request.copyMetadata.toString());
+    }
+    if (request.embedFonts !== undefined) {
+      formData.append('embedFonts', request.embedFonts.toString());
+    }
+
+    const response = await this.client.post<ApiResponse<FileResponse>>('/convert-pdfa', formData);
+    return response.data;
   }
 }
 

@@ -1,0 +1,59 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.uploadArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: var(--spacing-2xl);
+  border: 2px dashed var(--color-border-main);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-tertiary);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.uploadArea:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.dragActive {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-hover);
+  box-shadow: var(--shadow-md);
+  transform: scale(1.02);
+}
+
+.metadataGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.metadataItem {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+}
+
+.metadataLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.metadataValue {
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  word-break: break-word;
+}

@@ -6,6 +6,10 @@ import { MergePanel } from './components/Operations/MergePanel/MergePanel'
 import { SplitPanel } from './components/Operations/SplitPanel/SplitPanel'
 import { CompressPanel } from './components/Operations/CompressPanel/CompressPanel'
 import { ConvertPanel } from './components/Operations/ConvertPanel/ConvertPanel'
+import { MetadataPanel } from './components/Operations/MetadataPanel/MetadataPanel'
+import { DataExtractionPanel } from './components/Operations/DataExtractionPanel/DataExtractionPanel'
+import { PdfAValidationPanel } from './components/Operations/PdfAValidationPanel/PdfAValidationPanel'
+import { PdfAConversionPanel } from './components/Operations/PdfAConversionPanel/PdfAConversionPanel'
 
 function App() {
   const [selectedTab, setSelectedTab] = useState(0)
@@ -31,10 +35,10 @@ function App() {
             <PdfIcon sx={{ fontSize: 40 }} />
             <Box>
               <Typography variant="h4" fontWeight="bold">
-                PDF Editor powered by Pdftools
+                Pdftools SDK showcase
               </Typography>
               <Typography variant="body2" sx={{ color: 'white' }}>
-                View, Edit, Merge, Split, Compress & Convert PDFs
+                View, Edit, Merge, Split, Compress, Convert, Extract & Validate PDFs
               </Typography>
             </Box>
           </Box>
@@ -57,6 +61,10 @@ function App() {
             <Tab label="Split PDF" />
             <Tab label="Compress PDF" />
             <Tab label="Convert to Image" />
+            <Tab label="Metadata" />
+            <Tab label="Extract Data" />
+            <Tab label="PDF/A Validation" />
+            <Tab label="PDF/A Conversion" />
           </Tabs>
         </Paper>
 
@@ -119,6 +127,54 @@ function App() {
                 Convert PDF pages to PNG, JPEG, or TIFF images
               </Typography>
               <ConvertPanel />
+            </Box>
+          )}
+
+          {selectedTab === 5 && (
+            <Box>
+              <Typography variant="h5" gutterBottom>
+                Extract PDF Metadata
+              </Typography>
+              <Typography color="text.secondary" sx={{ mb: 3 }}>
+                View document properties, author info, and PDF/A conformance details
+              </Typography>
+              <MetadataPanel />
+            </Box>
+          )}
+
+          {selectedTab === 6 && (
+            <Box>
+              <Typography variant="h5" gutterBottom>
+                Extract PDF Data
+              </Typography>
+              <Typography color="text.secondary" sx={{ mb: 3 }}>
+                Extract text content from PDF documents
+              </Typography>
+              <DataExtractionPanel />
+            </Box>
+          )}
+
+          {selectedTab === 7 && (
+            <Box>
+              <Typography variant="h5" gutterBottom>
+                PDF/A Validation
+              </Typography>
+              <Typography color="text.secondary" sx={{ mb: 3 }}>
+                Validate PDF documents for PDF/A compliance
+              </Typography>
+              <PdfAValidationPanel />
+            </Box>
+          )}
+
+          {selectedTab === 8 && (
+            <Box>
+              <Typography variant="h5" gutterBottom>
+                Convert to PDF/A
+              </Typography>
+              <Typography color="text.secondary" sx={{ mb: 3 }}>
+                Convert PDF documents to archival PDF/A format
+              </Typography>
+              <PdfAConversionPanel />
             </Box>
           )}
         </Paper>

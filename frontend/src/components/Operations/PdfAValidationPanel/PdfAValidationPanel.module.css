@@ -1,0 +1,84 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.uploadArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: var(--spacing-2xl);
+  border: 2px dashed var(--color-border-main);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg-tertiary);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.uploadArea:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.dragActive {
+  border-color: var(--color-primary);
+  background-color: var(--color-bg-hover);
+  box-shadow: var(--shadow-md);
+  transform: scale(1.02);
+}
+
+.resultHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.complianceIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compliant {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.nonCompliant {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.issueItem {
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-tertiary);
+  border-left: 4px solid;
+}
+
+.issueError {
+  border-color: #f44336;
+}
+
+.issueWarning {
+  border-color: #ff9800;
+}
+
+.issueCode {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.issueMessage {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
