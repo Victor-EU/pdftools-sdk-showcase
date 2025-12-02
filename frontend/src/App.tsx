@@ -24,24 +24,32 @@ function App() {
         component="header"
         sx={{
           bgcolor: 'white',
-          py: 2,
-          boxShadow: 2,
+          py: 2.5,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          borderBottom: '1px solid #e5e7eb',
         }}
       >
         <Container maxWidth="xl">
-          <Box display="flex" alignItems="center" gap={2}>
-            <img
-              src="/pdftools-logo.svg"
-              alt="PDF Tools"
-              style={{ height: 48 }}
-            />
-            <Box sx={{ borderLeft: '1px solid #e0e0e0', pl: 2, ml: 1 }}>
-              <Typography variant="h6" fontWeight="500" color="text.primary">
-                SDK Showcase
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                View, Edit, Merge, Split, Compress, Convert, Extract & Validate PDFs
-              </Typography>
+          <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box display="flex" alignItems="center" gap={3}>
+              <img
+                src="/pdftools-logo.svg"
+                alt="PDF Tools"
+                style={{ height: 44 }}
+              />
+              <Box sx={{ borderLeft: '2px solid #e5e7eb', pl: 3, ml: 1 }}>
+                <Typography
+                  variant="h5"
+                  fontWeight="700"
+                  color="text.primary"
+                  sx={{ letterSpacing: '-0.02em' }}
+                >
+                  SDK Showcase
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.25 }}>
+                  View, Edit, Merge, Split, Compress, Convert, Extract & Validate PDFs
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </Container>
