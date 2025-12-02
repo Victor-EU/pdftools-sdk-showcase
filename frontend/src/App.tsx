@@ -32,11 +32,13 @@ function App() {
         <Container maxWidth="xl">
           <Box display="flex" alignItems="center" justifyContent="space-between">
             <Box display="flex" alignItems="center" gap={3}>
-              <img
-                src="/pdftools-logo.svg"
-                alt="PDF Tools"
-                style={{ height: 44 }}
-              />
+              <a href="/" style={{ display: 'flex', alignItems: 'center' }}>
+                <img
+                  src="/pdftools-logo.svg"
+                  alt="PDF Tools"
+                  style={{ height: 44, cursor: 'pointer' }}
+                />
+              </a>
               <Box sx={{ borderLeft: '2px solid #e5e7eb', pl: 3, ml: 1 }}>
                 <Typography
                   variant="h5"
@@ -44,7 +46,7 @@ function App() {
                   color="text.primary"
                   sx={{ letterSpacing: '-0.02em' }}
                 >
-                  SDK Showcase
+                  Pdftools SDK Showcase
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mt: 0.25 }}>
                   View, Edit, Merge, Split, Compress, Convert, Extract & Validate PDFs
