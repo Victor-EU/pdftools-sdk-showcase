@@ -1,0 +1,6 @@
+# Tell Railway to use Dockerfile instead of Nixpacks
+[phases.build]
+cmds = ["echo 'Using Dockerfile'"]
+
+[start]
+cmd = "java -Djava.library.path=/app/lib/linux-x64 -jar app.jar"
