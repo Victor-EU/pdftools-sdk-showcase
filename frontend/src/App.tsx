@@ -31,7 +31,7 @@ function App() {
       >
         <Container maxWidth="xl">
           <Box display="flex" alignItems="center" justifyContent="space-between">
-            <Box display="flex" alignItems="center" gap={2}>
+            <Box display="flex" alignItems="center" gap={0}>
               <a href="/" style={{ display: 'flex', alignItems: 'center' }}>
                 <img
                   src="/pdftools-logo.svg"
