@@ -1,6 +1,14 @@
-# PDF Editor Frontend
+# PDF Tools SDK Showcase - Frontend
 
 Modern React application for PDF editing operations with a light blue theme inspired by pdftools.com.
+
+## 🚀 Live Deployment
+
+| Environment | URL |
+|-------------|-----|
+| **Production** | https://frontend-m7eahhoo4-victors-projects-6b496519.vercel.app |
+
+**Hosted on**: [Vercel](https://vercel.com)
 
 ## Features
 
@@ -9,6 +17,10 @@ Modern React application for PDF editing operations with a light blue theme insp
 - **Split PDF**: Divide PDFs by pages or ranges
 - **Compress PDF**: Reduce file size with optimization
 - **Convert to Image**: Export PDF pages as PNG/JPEG/TIFF
+- **PDF/A Validation**: Validate PDF/A conformance
+- **PDF/A Conversion**: Convert PDFs to PDF/A format
+- **Metadata Extraction**: View document properties
+- **Data Extraction**: Extract text and images
 
 ## Technology Stack
 
@@ -327,12 +339,54 @@ export const MyComponent = ({ prop1, prop2 }: MyComponentProps) => {
 7. Test with various PDF files
 8. Build for production
 
+## Vercel Deployment
+
+The frontend is configured for Vercel deployment.
+
+### Deploy to Vercel
+
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Login and link
+vercel login
+vercel link
+
+# Set environment variable for backend API
+vercel env add VITE_API_URL production
+# Enter: https://pdftools-sdk-showcase-production.up.railway.app/api
+
+# Deploy to production
+vercel --prod
+```
+
+### Environment Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `VITE_API_URL` | Backend API URL | `https://your-backend.up.railway.app/api` |
+
+### vercel.json Configuration
+
+```json
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
 ## Resources
 
 - [PDF Tools Viewer Documentation](https://docs.pdf-tools.com/viewer/)
 - [Material-UI Documentation](https://mui.com/)
 - [Vite Documentation](https://vitejs.dev/)
 - [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)
+- [Vercel Documentation](https://vercel.com/docs)
 
 ## Author
 

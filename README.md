@@ -1,12 +1,24 @@
-# PDF Editor - Complete PDF Processing Solution
+# PDF Tools SDK Showcase - Complete PDF Processing Solution
 
 ![License](https://img.shields.io/badge/license-Proprietary-blue)
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.0-brightgreen)
 ![React](https://img.shields.io/badge/React-18.2-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue)
+![Vercel](https://img.shields.io/badge/Frontend-Vercel-black)
+![Railway](https://img.shields.io/badge/Backend-Railway-purple)
 
 A professional-grade PDF processing application built with Spring Boot and React, powered by PDF Tools SDK. Provides comprehensive PDF manipulation capabilities including viewing, merging, splitting, compressing, and converting documents.
+
+## 🚀 Live Demo
+
+| Component | URL |
+|-----------|-----|
+| **Frontend** | https://frontend-m7eahhoo4-victors-projects-6b496519.vercel.app |
+| **Backend API** | https://pdftools-sdk-showcase-production.up.railway.app/api |
+| **Health Check** | https://pdftools-sdk-showcase-production.up.railway.app/api/health |
+
+**Repository**: https://github.com/Victor-EU/pdftools-sdk-showcase
 
 ## Features
 
@@ -591,33 +603,82 @@ const LICENSE_KEY = '<4H,V6,VIEWWEB,YOUR_LICENSE_KEY>'
 
 ## Deployment
 
-### Docker Deployment (Recommended)
+### Current Production Setup
 
-**Backend Dockerfile:**
+This application is deployed using:
+- **Frontend**: [Vercel](https://vercel.com) - React app hosting
+- **Backend**: [Railway](https://railway.app) - Spring Boot API hosting
+
+### Deploy to Vercel (Frontend)
+
+1. **Install Vercel CLI**:
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Link and deploy**:
+   ```bash
+   cd frontend
+   vercel link
+   vercel env add VITE_API_URL production
+   # Enter: https://your-railway-backend.up.railway.app/api
+   vercel --prod
+   ```
+
+### Deploy to Railway (Backend)
+
+1. **Install Railway CLI**:
+   ```bash
+   npm install -g @railway/cli
+   railway login
+   ```
+
+2. **Deploy**:
+   ```bash
+   cd backend
+   railway link
+   railway variables --set "PDFTOOLS_LICENSE_KEY=your-license-key"
+   railway variables --set "CORS_ORIGINS=https://your-vercel-frontend.vercel.app"
+   railway up
+   ```
+
+3. **Get your domain**:
+   ```bash
+   railway domain
+   ```
+
+### Environment Variables
+
+**Backend (Railway)**:
+| Variable | Description |
+|----------|-------------|
+| `PDFTOOLS_LICENSE_KEY` | PDF Tools SDK license key |
+| `CORS_ORIGINS` | Comma-separated allowed origins |
+| `PORT` | Server port (auto-set by Railway) |
+
+**Frontend (Vercel)**:
+| Variable | Description |
+|----------|-------------|
+| `VITE_API_URL` | Backend API URL |
+
+### Docker Deployment (Alternative)
+
+**Backend Dockerfile** (included in `backend/Dockerfile`):
 ```dockerfile
-FROM openjdk:17-slim
+FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
-COPY target/pdf-editor-backend-1.0.0.jar app.jar
-COPY lib lib/
-ENV PDFTOOLS_LICENSE_KEY=""
+COPY pom.xml .
+COPY src ./src
+COPY lib ./lib
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/lib/linux-x64 /app/lib/linux-x64
+ENV LD_LIBRARY_PATH=/app/lib/linux-x64
 EXPOSE 5001
-CMD ["java", "-jar", "app.jar"]
-```
-
-**Frontend Dockerfile:**
-```dockerfile
-FROM node:18-alpine as build
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 5000
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
 
 **Docker Compose:**
@@ -630,6 +691,7 @@ services:
       - "5001:5001"
     environment:
       - PDFTOOLS_LICENSE_KEY=${PDFTOOLS_LICENSE_KEY}
+      - CORS_ORIGINS=http://localhost:5000
     volumes:
       - ./uploads:/app/uploads
       - ./outputs:/app/outputs
@@ -663,7 +725,7 @@ This project uses the PDF Tools SDK which requires a commercial license.
 - **Security**: Review `SECURITY_AUDIT.md` before production deployment
 - **Backend Details**: See `backend/README.md`
 - **Frontend Details**: See `frontend/README.md`
-- **Issues**: [GitHub Issues](your-repository-url/issues)
+- **Issues**: [GitHub Issues](https://github.com/Victor-EU/pdftools-sdk-showcase/issues)
 
 ## Acknowledgments
 
@@ -674,7 +736,14 @@ This project uses the PDF Tools SDK which requires a commercial license.
 
 ## Version History
 
-### v1.0.0 (Current)
+### v1.1.0 (Current) - December 2025
+- Production deployment on Vercel + Railway
+- Added health check endpoint for monitoring
+- Added Spring Boot Actuator
+- CORS configuration for cross-origin requests
+- Linux x64 native library support for Railway deployment
+
+### v1.0.0 - November 2025
 - Initial release
 - PDF viewing and annotation
 - Merge multiple PDFs

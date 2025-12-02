@@ -1,6 +1,15 @@
-# PDF Editor Backend
+# PDF Tools SDK Showcase - Backend
 
 Backend service for PDF editing operations using PDF Tools SDK.
+
+## 🚀 Live Deployment
+
+| Environment | URL |
+|-------------|-----|
+| **Production** | https://pdftools-sdk-showcase-production.up.railway.app/api |
+| **Health Check** | https://pdftools-sdk-showcase-production.up.railway.app/api/health |
+
+**Hosted on**: [Railway](https://railway.app)
 
 ## Features
 
@@ -8,12 +17,18 @@ Backend service for PDF editing operations using PDF Tools SDK.
 - **Split PDF**: Divide a PDF into multiple files by pages or ranges
 - **Compress PDF**: Reduce file size with web/print optimization profiles
 - **Convert to Image**: Transform PDF pages to PNG, JPEG, or TIFF formats
+- **Health Check**: `/api/health` endpoint for monitoring
+- **PDF/A Validation**: Validate PDF/A conformance
+- **PDF/A Conversion**: Convert PDFs to PDF/A format
+- **Metadata Extraction**: Extract document metadata
+- **Data Extraction**: Extract text and images from PDFs
 
 ## Technology Stack
 
 - **Java 17**
 - **Spring Boot 3.2.0**
-- **PDF Tools SDK 1.14.0** (macOS ARM64)
+- **Spring Boot Actuator** for health monitoring
+- **PDF Tools SDK 1.14.0**
 - **Maven** for dependency management
 
 ## Prerequisites
@@ -21,7 +36,7 @@ Backend service for PDF editing operations using PDF Tools SDK.
 - Java 17 or higher
 - Maven 3.6+
 - PDF Tools SDK license key
-- macOS with ARM64 architecture
+- Linux x64 (production) or macOS ARM64 (development)
 
 ## Setup
 
@@ -51,9 +66,31 @@ pdftools.sdk.license-key=<PDFSDK,V1,MGAAS0GPQFL3W2XUDBL>
 mvn spring-boot:run
 ```
 
-The server will start at `http://localhost:8080/api`
+The server will start at `http://localhost:5001/api`
 
 ## API Endpoints
+
+### Health Check
+
+**GET** `/api/health`
+
+Returns the application health status.
+
+**Example:**
+```bash
+curl http://localhost:5001/api/health
+```
+
+**Response:**
+```json
+{
+  "status": "UP",
+  "components": {
+    "diskSpace": { "status": "UP" },
+    "ping": { "status": "UP" }
+  }
+}
+```
 
 ### Merge PDFs
 
@@ -67,7 +104,7 @@ Merges multiple PDF files into one.
 
 **Example:**
 ```bash
-curl -X POST http://localhost:8080/api/merge \
+curl -X POST http://localhost:5001/api/merge \
   -F "files=@file1.pdf" \
   -F "files=@file2.pdf" \
   -F "outputFileName=merged.pdf"
@@ -87,7 +124,7 @@ Splits a PDF file into multiple files.
 
 **Example (by ranges):**
 ```bash
-curl -X POST http://localhost:8080/api/split \
+curl -X POST http://localhost:5001/api/split \
   -F "file=@document.pdf" \
   -F "splitMode=ranges" \
   -F "splitPoints=1-3" \
@@ -97,7 +134,7 @@ curl -X POST http://localhost:8080/api/split \
 
 **Example (by pages):**
 ```bash
-curl -X POST http://localhost:8080/api/split \
+curl -X POST http://localhost:5001/api/split \
   -F "file=@document.pdf" \
   -F "splitMode=pages" \
   -F "splitPoints=5" \
@@ -118,7 +155,7 @@ Compresses a PDF to reduce file size.
 
 **Example:**
 ```bash
-curl -X POST http://localhost:8080/api/compress \
+curl -X POST http://localhost:5001/api/compress \
   -F "file=@large.pdf" \
   -F "compressionProfile=web" \
   -F "outputFileName=compressed.pdf"
@@ -139,7 +176,7 @@ Converts PDF pages to image format.
 
 **Example:**
 ```bash
-curl -X POST http://localhost:8080/api/convert \
+curl -X POST http://localhost:5001/api/convert \
   -F "file=@document.pdf" \
   -F "imageFormat=png" \
   -F "dpi=300" \
@@ -154,7 +191,7 @@ Downloads a processed file.
 
 **Example:**
 ```bash
-curl -O http://localhost:8080/api/download/merged.pdf
+curl -O http://localhost:5001/api/download/merged.pdf
 ```
 
 ## Project Structure
@@ -184,7 +221,8 @@ Edit `src/main/resources/application.properties`:
 
 ```properties
 # Server port
-server.port=8080
+server.port=5001
+server.servlet.context-path=/api
 
 # File upload limits
 spring.servlet.multipart.max-file-size=100MB
@@ -196,10 +234,44 @@ app.output.dir=./outputs
 
 # PDF Tools SDK
 pdftools.sdk.license-key=${PDFTOOLS_LICENSE_KEY}
-pdftools.sdk.native-lib-path=./lib/osx-arm64
+pdftools.sdk.native-lib-path=${NATIVE_LIB_PATH:./lib/linux-x64}
 
 # CORS (adjust for production)
-cors.allowed-origins=http://localhost:3000,http://localhost:5173
+cors.allowed-origins=${CORS_ORIGINS:http://localhost:5000,http://localhost:3000}
+
+# Actuator (health endpoint)
+management.endpoints.web.exposure.include=health
+management.endpoints.web.base-path=/
+management.endpoint.health.show-details=always
+```
+
+## Railway Deployment
+
+The backend is configured for Railway deployment with:
+
+1. **Dockerfile**: Multi-stage build with Maven and JRE
+2. **railway.toml**: Deployment configuration
+3. **Health check**: `/api/health` endpoint for Railway health probes
+
+### Deploy to Railway
+
+```bash
+# Install Railway CLI
+npm install -g @railway/cli
+
+# Login and link
+railway login
+railway link
+
+# Set environment variables
+railway variables --set "PDFTOOLS_LICENSE_KEY=your-license-key"
+railway variables --set "CORS_ORIGINS=https://your-frontend.vercel.app"
+
+# Deploy
+railway up
+
+# Get domain
+railway domain
 ```
 
 ## Logging
