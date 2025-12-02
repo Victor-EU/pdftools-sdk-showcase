@@ -22,8 +22,9 @@ class ApiService {
   private client: AxiosInstance;
 
   constructor() {
+    const baseURL = import.meta.env.VITE_API_URL || '/api';
     this.client = axios.create({
-      baseURL: '/api',
+      baseURL,
       timeout: 300000,
       headers: {
         'Content-Type': 'multipart/form-data',
