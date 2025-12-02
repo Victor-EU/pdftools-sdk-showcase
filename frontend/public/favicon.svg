@@ -1,13 +1,17 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
-  <rect width="32" height="32" rx="4" fill="#4A9BD1"/>
+  <!-- Light blue square (back) -->
+  <rect x="2" y="8" width="18" height="18" rx="4" fill="url(#gradient1)" transform="rotate(-15 11 17)"/>
+  <!-- Dark blue square (front) -->
+  <rect x="10" y="5" width="18" height="18" rx="4" fill="url(#gradient2)" transform="rotate(15 19 14)"/>
 
-  <!-- PDF Document Shape -->
-  <path d="M9 6C9 5.44772 9.44772 5 10 5H18L23 10V25C23 25.5523 22.5523 26 22 26H10C9.44772 26 9 25.5523 9 25V6Z" fill="white"/>
-
-  <!-- Folded Corner -->
-  <path d="M18 5V9C18 9.55228 18.4477 10 19 10H23L18 5Z" fill="#E8F4FB"/>
-
-  <!-- PDF Text -->
-  <text x="16" y="19" font-family="Arial, sans-serif" font-size="7" font-weight="bold" fill="#4A9BD1" text-anchor="middle">PDF</text>
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7DD3FC"/>
+      <stop offset="100%" style="stop-color:#38BDF8"/>
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6"/>
+      <stop offset="100%" style="stop-color:#6366F1"/>
+    </linearGradient>
+  </defs>
 </svg>

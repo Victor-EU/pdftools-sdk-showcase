@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Box, Container, Paper, Tabs, Tab, Typography } from '@mui/material'
-import { Description as PdfIcon } from '@mui/icons-material'
 import { PDFViewer } from './components/PDFViewer/PDFViewer'
 import { MergePanel } from './components/Operations/MergePanel/MergePanel'
 import { SplitPanel } from './components/Operations/SplitPanel/SplitPanel'
@@ -24,20 +23,23 @@ function App() {
       <Box
         component="header"
         sx={{
-          bgcolor: 'primary.main',
-          color: 'white',
-          py: 3,
+          bgcolor: 'white',
+          py: 2,
           boxShadow: 2,
         }}
       >
         <Container maxWidth="xl">
           <Box display="flex" alignItems="center" gap={2}>
-            <PdfIcon sx={{ fontSize: 40 }} />
-            <Box>
-              <Typography variant="h4" fontWeight="bold">
-                Pdftools SDK showcase
+            <img
+              src="/pdftools-logo.svg"
+              alt="PDF Tools"
+              style={{ height: 48 }}
+            />
+            <Box sx={{ borderLeft: '1px solid #e0e0e0', pl: 2, ml: 1 }}>
+              <Typography variant="h6" fontWeight="500" color="text.primary">
+                SDK Showcase
               </Typography>
-              <Typography variant="body2" sx={{ color: 'white' }}>
+              <Typography variant="body2" color="text.secondary">
                 View, Edit, Merge, Split, Compress, Convert, Extract & Validate PDFs
               </Typography>
             </Box>
@@ -182,7 +184,7 @@ function App() {
         {/* Footer */}
         <Box sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}>
           <Typography variant="body2">
-            Powered by PDFTools' SDK
+            Powered by <a href="https://www.pdf-tools.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3B82F6', textDecoration: 'none' }}>PDF Tools</a> SDK
           </Typography>
         </Box>
       </Container>
